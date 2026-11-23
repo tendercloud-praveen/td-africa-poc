@@ -18,9 +18,6 @@ export default function ChatMessages({ messages, onQuickReply }) {
 
   return (
     <div className="chat-scroll">
-      {!visible.length && (
-        <div className="chat-empty">Say hello, or try "I want 10 laptops".</div>
-      )}
       {visible.map((m) => {
         if (m.sender === "customer") {
           return (
@@ -63,31 +60,44 @@ export default function ChatMessages({ messages, onQuickReply }) {
 function OrderSummary({ meta, active, onQuickReply }) {
   return (
     <div className="summary">
-      <div className="summary-title">Order summary</div>
+      <div className="summary-title">Quotation</div>
       {meta.items.map((it) => (
-        <div key={it.product_id} className="summary-row">
-          <span>
-            {it.name} <span className="muted">× {it.quantity}</span>
-          </span>
-          <span>{naira(it.line_total)}</span>
+        <div key={it.product_id}>
+          <div className="summary-row">
+            <span>
+              {it.name} <span className="muted">× {it.quantity}</span>
+            </span>
+            <span>{naira(it.line_total)}</span>
+          </div>
+          {it.stock != null && (
+            <div className="muted small-text">
+              Unit price {naira(it.unit_price)} · Available stock {Number(it.stock).toLocaleString("en-NG")}
+            </div>
+          )}
         </div>
       ))}
       <div className="summary-line" />
       <div className="summary-row total">
-        <span>Total{meta.discount_percent ? ` (−${meta.discount_percent}%)` : ""}</span>
+        <span>Quotation total{meta.discount_percent ? ` (−${meta.discount_percent}%)` : ""}</span>
         <span>{naira(meta.total)}</span>
       </div>
       {active ? (
-        <div className="summary-actions">
-          <button type="button" className="btn" onClick={() => onQuickReply("YES")}>
-            YES, confirm
-          </button>
-          <button type="button" className="btn-outline" onClick={() => onQuickReply("CHANGE")}>
-            CHANGE
-          </button>
-        </div>
+        <>
+          <div className="small-text">Your quotation is ready. Would you like to proceed with this order?</div>
+          <div className="summary-actions">
+            <button type="button" className="btn" onClick={() => onQuickReply("Yes")}>
+              1. Yes, Place Order
+            </button>
+            <button type="button" className="btn-outline" onClick={() => onQuickReply("Edit Order")}>
+              2. Edit Order
+            </button>
+            <button type="button" className="btn-outline" onClick={() => onQuickReply("Cancel Order")}>
+              3. Cancel Order
+            </button>
+          </div>
+        </>
       ) : (
-        <div className="muted small-text">Reply YES to confirm or CHANGE to modify.</div>
+        <div className="muted small-text">Reply 1 (Yes, Place Order), 2 (Edit Order) or 3 (Cancel Order).</div>
       )}
     </div>
   );

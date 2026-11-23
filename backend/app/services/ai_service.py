@@ -271,6 +271,10 @@ def extract(text: str, stage: str) -> dict:
         # an "enquiry" that gives a quantity is really an order
         if intent == "enquiry" and any(it["quantity"] for it in items):
             intent = "order"
+        # The AI called it a question but the rules found a quantity ("please send me 3 lenovo laptops"):
+        # it is an order, and the quantity must not be lost.
+        if intent == "enquiry" and fallback["intent"] == "order" and any(it["quantity"] for it in fallback["items"]):
+            intent, items = "order", fallback["items"]
         # "Is the whole message just a number?" is exact in the rules; the AI must not guess it
         # (e.g. "printer 4" is an order for 4 printers, not option 4).
         if intent == "number" and fallback["intent"] != "number":

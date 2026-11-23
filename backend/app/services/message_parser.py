@@ -25,7 +25,8 @@ CANCEL = ("cancel", "forget it", "no need", "leave am", "stop order")
 HUMAN = ("talk to", "speak to", "speak with", "talk with", "a person", "human", "real person",
          "agent", "salesperson", "sales person", "call me", "customer care")
 DISCOUNT = ("discount", "reduce price", "reduce the price", "reduce am", "cheaper", "last price",
-            "best price", "rebate", "price reduction", "% off", "percent off", "can you do", "lower price")
+            "best price", "rebate", "price reduction", "% off", "percent off", "can you do", "lower price",
+            "offers", "any offer", "special offer", "special price", "special pricing", "promo", "deals")
 STATUS = ("status", "where is my order", "where my order", "track", "my order reach", "delivery date",
           "when will", "has my order")
 REORDER = ("same as last", "same thing as last", "usual", "last order", "same order", "repeat order",
