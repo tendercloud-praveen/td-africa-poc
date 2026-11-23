@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-dotenv
+pydantic
+sqlalchemy>=2.0
+# PostgreSQL driver
+psycopg2-binary
+# Used for BOTH Ollama (its OpenAI-compatible API at /v1) and Azure OpenAI
+openai>=1.0
